@@ -30,28 +30,28 @@
         finalTotal()
     }
     function billsTotal() {
-       total = Number(document.getElementById("d100_tot").innerText.replace(/\D/g,''))
-        total += Number(document.getElementById("d50_tot").innerText.replace(/\D/g,''))
-        total += Number(document.getElementById("d20_tot").innerText.replace(/\D/g,''))
-        total += Number(document.getElementById("d10_tot").innerText.replace(/\D/g,''))
-        total += Number(document.getElementById("d5_tot").innerText.replace(/\D/g,''))
-        total += Number(document.getElementById("d2_tot").innerText.replace(/\D/g,''))
-        total += Number(document.getElementById("d1_tot").innerText.replace(/\D/g,''))
-        document.getElementById("bill_total").innerText = "$" + total
+       total = Number(document.getElementById("d100_tot").innerText.replace('$',''))
+        total += Number(document.getElementById("d50_tot").innerText.replace('$',''))
+        total += Number(document.getElementById("d20_tot").innerText.replace('$',''))
+        total += Number(document.getElementById("d10_tot").innerText.replace('$',''))
+        total += Number(document.getElementById("d5_tot").innerText.replace('$',''))
+        total += Number(document.getElementById("d2_tot").innerText.replace('$',''))
+        total += Number(document.getElementById("d1_tot").innerText.replace('$',''))
+        document.getElementById("bill_total").innerText = "$" + math.round(total,2)
     }
     function coinsTotal() {
-       total = Number(document.getElementById("c100_tot").innerText.replace(/\D/g,''))
-        total += Number(document.getElementById("c50_tot").innerText.replace(/\D/g,''))
-        total += Number(document.getElementById("c25_tot").innerText.replace(/\D/g,''))
-        total += Number(document.getElementById("c10_tot").innerText.replace(/\D/g,''))
-        total += Number(document.getElementById("c05_tot").innerText.replace(/\D/g,''))
-        total += Number(document.getElementById("c01_tot").innerText.replace(/\D/g,''))
-        document.getElementById("coin_total").innerText = "$" + total
+       total = Number(document.getElementById("c100_tot").innerText.replace('$',''))
+        total += Number(document.getElementById("c50_tot").innerText.replace('$',''))
+        total += Number(document.getElementById("c25_tot").innerText.replace('$',''))
+        total += Number(document.getElementById("c10_tot").innerText.replace('$',''))
+        total += Number(document.getElementById("c05_tot").innerText.replace('$',''))
+        total += Number(document.getElementById("c01_tot").innerText.replace('$',''))
+        document.getElementById("coin_total").innerText = "$" + math.round(total,2)
     }
     function finalTotal() {
-        total = Number(document.getElementById("bill_total").innerText.replace(/\D/g,''))
-        total += Number(document.getElementById("coin_total").innerText.replace(/\D/g,''))
-        document.getElementById("final_total").innerText = "$" + total
+        total = Number(document.getElementById("bill_total").innerText.replace('$',''))
+        total += Number(document.getElementById("coin_total").innerText.replace('$',''))
+        document.getElementById("final_total").innerText = "$" + math.round(total,2)
     }
 </script>
 
