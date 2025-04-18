@@ -184,6 +184,11 @@
                 document.getElementById(denoms[i] + "_diff").classList.remove('red')
             }
         }
+        if (Number(document.getElementById("final_diff").innerText.replace('$','')) != 300) {
+            document.getElementById("final_diff").classList.add('red')
+        } else {
+            document.getElementById("final_diff").classList.remove('red')
+        }
     }
     function changePage() {
         window.location.href = "./cashcounter.html"
