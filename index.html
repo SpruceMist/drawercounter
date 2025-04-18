@@ -47,7 +47,7 @@
         if (amount != "Error") {
             total = isNaN(quantity) ? 0 : quantity
             total = isNaN(amount) ? total : total + amount
-            document.getElementById(denomination + "_tot").innerText = "$" + total
+            document.getElementById(denomination + "_tot").innerText = "$" + math.round(total,2)
             update()
         } else {
             document.getElementById(denomination + "_tot").innerText = "Error"
@@ -63,7 +63,7 @@
         if (amount != "Error") {
             total = isNaN(quantity) ? 0 : quantity
             total = isNaN(amount) ? total : total + amount
-            document.getElementById(denomination + "_tot2").innerText = "$" + total
+            document.getElementById(denomination + "_tot2").innerText = "$" + math.round(total,2)
             update()
         } else {
             document.getElementById(denomination + "_tot2").innerText = "Error"
@@ -159,7 +159,7 @@
         for(let i=0; i < denoms.length; i ++) {
             first = Number(document.getElementById(denoms[i] + "_tot").innerText.replace('$',''))
             second = Number(document.getElementById(denoms[i] + "_tot2").innerText.replace('$',''))
-            document.getElementById(denoms[i] + "_diff").innerText = "$" + (first - second)
+            document.getElementById(denoms[i] + "_diff").innerText = "$" + math.round(first - second,2)
         }
     }
     function update() {
