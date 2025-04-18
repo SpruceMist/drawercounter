@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 
 <head>
-<Title>Cash Counter</Title>
-<link rel="stylesheet" href="main.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <Title>Cash Counter</Title>
+    <link rel="stylesheet" href="main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
 <script src="math.js"></script>
 
 <script>
+    window.addEventListener('beforeunload', function(e) {
+        e.preventDefault();
+        e.returnValue = '';
+    }); 
     function fromQty(expression,denomination) {
         if (denomination.substring(0,1) == "c") {
             return math.evaluate(expression) * (denomination.substring(1) / 100)
         } else {
-        return math.evaluate(expression) * denomination.substring(1)
+            return math.evaluate(expression) * denomination.substring(1)
         }
     }
     function fromAmt(expression,denomination) {
@@ -44,7 +48,7 @@
         if (amount != "Error") {
             total = isNaN(quantity) ? 0 : quantity
             total = isNaN(amount) ? total : total + amount
-            document.getElementById(denomination + "_tot").innerText = "$" + total
+            document.getElementById(denomination + "_tot").innerText = "$" + math.round(total,2)
             billsTotal()
             coinsTotal()
             finalTotal()
@@ -53,7 +57,7 @@
         }
     }
     function billsTotal() {
-       total = Number(document.getElementById("d100_tot").innerText.replace('$',''))
+        total = Number(document.getElementById("d100_tot").innerText.replace('$',''))
         total += Number(document.getElementById("d50_tot").innerText.replace('$',''))
         total += Number(document.getElementById("d20_tot").innerText.replace('$',''))
         total += Number(document.getElementById("d10_tot").innerText.replace('$',''))
@@ -63,7 +67,7 @@
         document.getElementById("bill_total").innerText = "$" + math.round(total,2)
     }
     function coinsTotal() {
-       total = Number(document.getElementById("c100_tot").innerText.replace('$',''))
+        total = Number(document.getElementById("c100_tot").innerText.replace('$',''))
         total += Number(document.getElementById("c50_tot").innerText.replace('$',''))
         total += Number(document.getElementById("c25_tot").innerText.replace('$',''))
         total += Number(document.getElementById("c10_tot").innerText.replace('$',''))
@@ -92,9 +96,7 @@
         }
     }
     function changePage() {
-        if(confirm("Do you want to leave this page?")) {
-            window.location.href = "./index.html"
-        }
+        window.location.href = "./index.html"
     }
 </script>
 
@@ -102,50 +104,50 @@
 
     <table id="mytable">
         <tr>
+            <th>Bills</th>
             <th>Quantity</th>
-            <th></th>
             <th>Amount</th>
             <th>Totals</th>
         </tr>
         <tr>
-            <td><input id="d100_qty" type="text" size=8 onChange="getTotal('d100')"></td>
             <td>Hundreds</td>
+            <td><input id="d100_qty" type="text" size=8 onChange="getTotal('d100')"></td>
             <td><input id="d100_amt" type="text" size=8 onChange="getTotal('d100')"></td>
             <td><label id="d100_tot" class="flbl"></label></td>
         </tr>
         <tr>
-            <td><input id="d50_qty" type="text" size=8 onChange="getTotal('d50')"></td>
             <td>Fifties</td>
+            <td><input id="d50_qty" type="text" size=8 onChange="getTotal('d50')"></td>
             <td><input id="d50_amt" type="text" size=8 onChange="getTotal('d50')"></td>
             <td><label id="d50_tot" class="flbl"></label></td>
         </tr>
         <tr>
-            <td><input id="d20_qty" type="text" size=8 onChange="getTotal('d20')"></td>
             <td>Twenties</td>
+            <td><input id="d20_qty" type="text" size=8 onChange="getTotal('d20')"></td>
             <td><input id="d20_amt" type="text" size=8 onChange="getTotal('d20')"></td>
             <td><label id="d20_tot" class="flbl"></label></td>
         </tr>
         <tr>
-            <td><input id="d10_qty" type="text" size=8 onChange="getTotal('d10')"></td>
             <td>Tens</td>
+            <td><input id="d10_qty" type="text" size=8 onChange="getTotal('d10')"></td>
             <td><input id="d10_amt" type="text" size=8 onChange="getTotal('d10')"></td>
             <td><label id="d10_tot" class="flbl"></label></td>
         </tr>
         <tr>
-            <td><input id="d5_qty" type="text" size=8 onChange="getTotal('d5')"></td>
             <td>Fives</td>
+            <td><input id="d5_qty" type="text" size=8 onChange="getTotal('d5')"></td>
             <td><input id="d5_amt" type="text" size=8 onChange="getTotal('d5')"></td>
             <td><label id="d5_tot" class="flbl"></label></td>
         </tr>
         <tr>
-            <td><input id="d2_qty" type="text" size=8 onChange="getTotal('d2')"></td>
             <td>Twos</td>
+            <td><input id="d2_qty" type="text" size=8 onChange="getTotal('d2')"></td>
             <td><input id="d2_amt" type="text" size=8 onChange="getTotal('d2')"></td>
             <td><label id="d2_tot" class="flbl"></label></td>
         </tr>
         <tr>
-            <td><input id="d1_qty" type="text" size=8 onChange="getTotal('d1')"></td>
             <td>Ones</td>
+            <td><input id="d1_qty" type="text" size=8 onChange="getTotal('d1')"></td>
             <td><input id="d1_amt" type="text" size=8 onChange="getTotal('d1')"></td>
             <td><label id="d1_tot" class="flbl"></label></td>
         </tr>
@@ -155,43 +157,43 @@
             <td><label id="bill_total"></label></td>
         </tr>
         <tr>
-            <td>Coins</td>
+            <th>Coins</th>
             <td></td>
             <td></td>
         </tr>
         <tr>
-            <td><input id="c100_qty" type="text" size=8 onChange="getTotal('c100')"></td>
             <td>Dollar Coin</td>
+            <td><input id="c100_qty" type="text" size=8 onChange="getTotal('c100')"></td>
             <td><input id="c100_amt" type="text" size=8 onChange="getTotal('c100')"></td>
             <td><label id="c100_tot" class="flbl"></label></td>
         </tr>
         <tr>
-            <td><input id="c50_qty" type="text" size=8 onChange="getTotal('c50')"></td>
             <td>Half Dollar</td>
+            <td><input id="c50_qty" type="text" size=8 onChange="getTotal('c50')"></td>
             <td><input id="c50_amt" type="text" size=8 onChange="getTotal('c50')"></td>
             <td><label id="c50_tot" class="flbl"></label></td>
         </tr>
         <tr>
-            <td><input id="c25_qty" type="text" size=8 onChange="getTotal('c25')"></td>
             <td>Quarters</td>
+            <td><input id="c25_qty" type="text" size=8 onChange="getTotal('c25')"></td>
             <td><input id="c25_amt" type="text" size=8 onChange="getTotal('c25')"></td>
             <td><label id="c25_tot" class="flbl"></label></td>
         </tr>
         <tr>
-            <td><input id="c10_qty" type="text" size=8 onChange="getTotal('c10')"></td>
             <td>Dimes</td>
+            <td><input id="c10_qty" type="text" size=8 onChange="getTotal('c10')"></td>
             <td><input id="c10_amt" type="text" size=8 onChange="getTotal('c10')"></td>
             <td><label id="c10_tot" class="flbl"></label></td>
         </tr>
         <tr>
-            <td><input id="c05_qty" type="text" size=8 onChange="getTotal('c05')"></td>
             <td>Nickels</td>
+            <td><input id="c05_qty" type="text" size=8 onChange="getTotal('c05')"></td>
             <td><input id="c05_amt" type="text" size=8 onChange="getTotal('c05')"></td>
             <td><label id="c05_tot" class="flbl"></label></td>
         </tr>
         <tr>
-            <td><input id="c01_qty" type="text" size=8 onChange="getTotal('c01')"></td>
             <td>Pennies</td>
+            <td><input id="c01_qty" type="text" size=8 onChange="getTotal('c01')"></td>
             <td><input id="c01_amt" type="text" size=8 onChange="getTotal('c01')"></td>
             <td><label id="c01_tot" class="flbl"></label></td>
         </tr>

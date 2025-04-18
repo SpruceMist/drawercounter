@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 
 <head>
-<Title>Drawer Counter</Title>
-<link rel="stylesheet" href="main.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <Title>Drawer Counter</Title>
+    <link rel="stylesheet" href="main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
 <script src="math.js"></script>
 
 <script>
+    window.addEventListener('beforeunload', function(e) {
+        e.preventDefault();
+        e.returnValue = '';
+    });
     function fromQty(expression,denomination) {
         if (denomination.substring(0,1) == "c") {
             return math.evaluate(expression) * (denomination.substring(1) / 100)
         } else {
-        return math.evaluate(expression) * denomination.substring(1)
+            return math.evaluate(expression) * denomination.substring(1)
         }
     }
     function fromAmt(expression,denomination) {
@@ -36,7 +40,7 @@
     function getTotal(denomination) {
         quantity = fromQty(document.getElementById(denomination + "_qty").value,denomination)
         if (document.getElementById(denomination + "_amt").value != "") {
-        amount = fromAmt(document.getElementById(denomination + "_amt").value,denomination)
+            amount = fromAmt(document.getElementById(denomination + "_amt").value,denomination)
         } else {
             amount = 0
         }
@@ -66,7 +70,7 @@
         }
     }
     function billsTotal() {
-       total = Number(document.getElementById("d100_tot").innerText.replace('$',''))
+        total = Number(document.getElementById("d100_tot").innerText.replace('$',''))
         total += Number(document.getElementById("d50_tot").innerText.replace('$',''))
         total += Number(document.getElementById("d20_tot").innerText.replace('$',''))
         total += Number(document.getElementById("d10_tot").innerText.replace('$',''))
@@ -76,7 +80,7 @@
         document.getElementById("bill_total").innerText = "$" + math.round(total,2)
     }
     function billsTotal2() {
-       total = Number(document.getElementById("d100_tot2").innerText.replace('$',''))
+        total = Number(document.getElementById("d100_tot2").innerText.replace('$',''))
         total += Number(document.getElementById("d50_tot2").innerText.replace('$',''))
         total += Number(document.getElementById("d20_tot2").innerText.replace('$',''))
         total += Number(document.getElementById("d10_tot2").innerText.replace('$',''))
@@ -86,7 +90,7 @@
         document.getElementById("bill_total2").innerText = "$" + math.round(total,2)
     }
     function billsTotalDiff() {
-       total = Number(document.getElementById("d100_diff").innerText.replace('$',''))
+        total = Number(document.getElementById("d100_diff").innerText.replace('$',''))
         total += Number(document.getElementById("d50_diff").innerText.replace('$',''))
         total += Number(document.getElementById("d20_diff").innerText.replace('$',''))
         total += Number(document.getElementById("d10_diff").innerText.replace('$',''))
@@ -96,7 +100,7 @@
         document.getElementById("bill_diff").innerText = "$" + math.round(total,2)
     }
     function coinsTotal() {
-       total = Number(document.getElementById("c100_tot").innerText.replace('$',''))
+        total = Number(document.getElementById("c100_tot").innerText.replace('$',''))
         total += Number(document.getElementById("c50_tot").innerText.replace('$',''))
         total += Number(document.getElementById("c25_tot").innerText.replace('$',''))
         total += Number(document.getElementById("c10_tot").innerText.replace('$',''))
@@ -105,7 +109,7 @@
         document.getElementById("coin_total").innerText = "$" + math.round(total,2)
     }
     function coinsTotal2() {
-       total = Number(document.getElementById("c100_tot2").innerText.replace('$',''))
+        total = Number(document.getElementById("c100_tot2").innerText.replace('$',''))
         total += Number(document.getElementById("c50_tot2").innerText.replace('$',''))
         total += Number(document.getElementById("c25_tot2").innerText.replace('$',''))
         total += Number(document.getElementById("c10_tot2").innerText.replace('$',''))
@@ -114,7 +118,7 @@
         document.getElementById("coin_total2").innerText = "$" + math.round(total,2)
     }
     function coinsTotalDiff() {
-       total = Number(document.getElementById("c100_diff").innerText.replace('$',''))
+        total = Number(document.getElementById("c100_diff").innerText.replace('$',''))
         total += Number(document.getElementById("c50_diff").innerText.replace('$',''))
         total += Number(document.getElementById("c25_diff").innerText.replace('$',''))
         total += Number(document.getElementById("c10_diff").innerText.replace('$',''))
@@ -182,9 +186,7 @@
         }
     }
     function changePage() {
-        if(confirm("Do you want to leave this page?")) {
-            window.location.href = "./cashcounter.html"
-        }
+        window.location.href = "./cashcounter.html"
     }
 
 </script>
@@ -399,9 +401,9 @@
             <td class="pink"><label id="d1_diff" class="flbl">$0</label></td>
         </tr>
         <tr>
-            <td class="difftable"></td>
+            <td></td>
             <td class="difftable"><label id="bill_diff">$0</label></td>
-            <td class="difftable"></td>
+            <td></td>
             <td class="difftable"><label id="coin_diff">$0</label></td>
         </tr>
         <tr>
