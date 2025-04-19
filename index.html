@@ -275,10 +275,10 @@
             <td></td>
             <td></td>
             <td>Total:</td>
-            <td><label id="bill_total">$0</label></td>
+            <td class="difftable"><label id="bill_total">$0</label></td>
             <td></td>
             <td>Total:</td>
-            <td><label id="bill_total2">$0</label></td>
+            <td class="difftable"><label id="bill_total2">$0</label></td>
         </tr>
         <tr>
             <td>Coins</td>
@@ -343,22 +343,23 @@
             <td></td>
             <td></td>
             <td>Total:</td>
-            <td><label id="coin_total">$0</label></td>
+            <td class="difftable"><label id="coin_total">$0</label></td>
             <td></td>
             <td>Total:</td>
-            <td><label id="coin_total2">$0</label></td>
+            <td class="difftable"><label id="coin_total2">$0</label></td>
         </tr>
         <tr>
             <td></td>
             <td></td>
             <td>Final:</td>
-            <td><label id="final_total">$0</label></td>
+            <td><b><label id="final_total">$0</label></b></td>
             <td></td>
             <td>Final:</td>
-            <td><label id="final_total2">$0</label></td>
+            <td><b><label id="final_total2">$0</label></b></td>
         </tr>
     </table>
     <button onclick="clearInputs()">Clear Inputs</button>
+    <button onclick='changePage()'>Cash Counter</button>
     <table class="difftable">
         <th>Bills</th>
         <th>Amount</th>
@@ -414,9 +415,8 @@
         <tr>
             <td></td>
             <td>Total</td>
-            <td><label id="final_diff">$0</label></td>
+            <td><b><label id="final_diff">$0</label></b></td>
         </tr>
     </table>
-    <button onclick='changePage()'>Cash Counter</button>
 
 </body>
