@@ -9,6 +9,7 @@
 <script src="math.js"></script>
 
 <script>
+    
     window.addEventListener('beforeunload', function(e) {
         e.preventDefault();
         e.returnValue = '';
@@ -190,8 +191,11 @@
             document.getElementById("final_diff").classList.remove('red')
         }
     }
-    function changePage() {
+    function changePageCC() {
         window.location.href = "./cashcounter.html"
+    }
+    function changePageSC() {
+        window.location.href = "./safecounter.html"
     }
 
 </script>
@@ -359,7 +363,8 @@
         </tr>
     </table>
     <button onclick="clearInputs()">Clear Inputs</button>
-    <button onclick='changePage()'>Cash Counter</button>
+    <button onclick='changePageCC()'>Cash Counter</button>
+    <button onclick='changePageSC()'>Safe Counter</button>
     <table class="difftable">
         <th>Bills</th>
         <th>Amount</th>

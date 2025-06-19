@@ -9,39 +9,36 @@
 <script src="math.js"></script>
 
 <script>
+
+    big_bundle = {"d20":500,"d10":250,"d5":1000,"d1":500,"c25":500,"c10":250,"c05":100,"c01":25}
+    single_bundle = {"d20":500,"d10":250,"d5":100,"d1":25,"c25":10,"c10":5,"c05":2,"c01":0.5}
+
     window.addEventListener('beforeunload', function(e) {
         e.preventDefault();
         e.returnValue = '';
     }); 
-    function fromQty(expression,denomination) {
+    function fromBigBundle(expression,denomination) {
         if (denomination.substring(0,1) == "c") {
-            return math.evaluate(expression) * (denomination.substring(1) / 100)
+            // return math.evaluate(expression) * (denomination.substring(1) / 100)
+            return big_bundle[denomination] * expression
         } else {
-            return math.evaluate(expression) * denomination.substring(1)
+            // return math.evaluate(expression) * denomination.substring(1)
+            return big_bundle[denomination] * expression
         }
     }
-    function fromAmt(expression,denomination) {
+    function fromSingleBundle(expression,denomination) {
         if (denomination.substring(0,1) == "c") {
-            denom = Number(denomination.replace(/\D/g,''))
-            if ((math.evaluate(expression) * 100) % denom == 0) {
-                return math.evaluate(expression)
-            } else {
-                return "Error"
-            }
+            // return math.evaluate(expression) * (denomination.substring(1) / 100)
+            return single_bundle[denomination] * expression
         } else {
-            denom = Number(denomination.replace(/\D/g,''))
-            if (math.evaluate(expression) % denom == 0) {
-                return math.evaluate(expression)
-            } else {
-                return "Error"
-            }
+            // return math.evaluate(expression) * denomination.substring(1)
+            return single_bundle[denomination] * expression
         }
-
     }
     function getTotal(denomination) {
-        quantity = fromQty(document.getElementById(denomination + "_qty").value,denomination)
+        quantity = fromBigBundle(document.getElementById(denomination + "_qty").value,denomination)
         if (document.getElementById(denomination + "_amt").value != "") {
-            amount = fromAmt(document.getElementById(denomination + "_amt").value,denomination)
+            amount = fromSingleBundle(document.getElementById(denomination + "_amt").value,denomination)
         } else {
             amount = 0
         }
@@ -52,6 +49,7 @@
             billsTotal()
             coinsTotal()
             finalTotal()
+            totalsDifference()
         } else {
             document.getElementById(denomination + "_tot").innerText = "Error"
         }
@@ -75,6 +73,34 @@
         total += Number(document.getElementById("coin_total").innerText.replace('$',''))
         document.getElementById("final_total").innerText = "$" + math.round(total,2)
     }
+    function estimatedTotal() {
+        previousCount = Number(document.getElementById("prev_count").value)
+        loans = Number(document.getElementById("loans").value)
+        bank = Number(document.getElementById("bank").value)
+        recycling = Number(document.getElementById("recycling").value)
+
+        if (previousCount != 0) {
+            document.getElementById("estimated").innerText = "$" + (previousCount - loans + bank + recycling)
+        } else {
+            document.getElementById("estimated").innerText = "NA"
+        }
+    }
+    function actualTotal() {
+        cashCount = Number(document.getElementById("final_total").innerText.replace('$',''))
+        loans = Number(document.getElementById("loans").value)
+        bank = Number(document.getElementById("bank").value)
+        recycling = Number(document.getElementById("recycling").value)
+
+        document.getElementById("actual").innerText = "$" + (cashCount - loans + bank + recycling)
+
+    }
+    function totalsDifference() {
+        estimatedTotal()
+        actualTotal()
+        estimated = Number(document.getElementById("estimated").innerText.replace("$",""))
+        actual = Number(document.getElementById("actual").innerText.replace("$",""))
+        document.getElementById("difference").innerText = actual - estimated
+    }
     function clearInputs() {
         if (confirm("Do you want to clear all inputs?")) {
             const elements = document.getElementsByTagName("input")
@@ -90,18 +116,30 @@
             finalTotal()
         }
     }
-    function changePage() {
+    function changePageDC() {
         window.location.href = "./index.html"
+    }
+    function changePageCC() {
+        window.location.href = "./cashcounter.html"
     }
 </script>
 
 <body>
+    <h3>Previous Count</h3>
+    <input id="prev_count" type="number" inputmode="numeric" value=0 onChange="totalsDifference()">
+    <h3>(-) Loans</h3>
+    <input id="loans" type="number" inputmode="numeric" value=0 onChange="totalsDifference()">
+    <h3>(+) Bank</h3>
+    <input id="bank" type="number" inputmode="numeric" value=0 onChange="totalsDifference()">
+    <h3>(+) Recycling</h3>
+    <input id="recycling" type="number" inputmode="numeric" value=0 onChange="totalsDifference()">
 
+    <h3>Cash Count</h3>
     <table id="mytable">
         <tr>
             <th>Bills</th>
-            <th>Quantity</th>
-            <th>Amount</th>
+            <th>Big Bundle</th>
+            <th>Single Bundle</th>
             <th>Totals</th>
         </tr>
         <tr>
@@ -176,6 +214,25 @@
             <td><b><label id="final_total">$0</label></b></td>
         </tr>
     </table>
+    
+    <br>
+
+    <table>
+        <tr>
+            <td><b>Estimated:</b></td>
+            <td><label id="estimated" class="flbl">$0</label></td>
+        </tr>
+        <tr>
+            <td><b>Actual:</b></td>
+            <td><label id="actual" class="flbl">$0</label></td>
+        </tr>
+        <tr>
+            <td><b>Difference:</b></td>
+            <td><label id="difference" class="flbl">$0</label></td>
+        </tr>
+    </table>
+
     <button onclick="clearInputs()">Clear Inputs</button>
-    <button onclick='changePage()'>Drawer Counter</button>
+    <button onclick='changePageDC()'>Drawer Counter</button>
+    <button onclick='changePageCC()'>Cash Counter</button>
 
