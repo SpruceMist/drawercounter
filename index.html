@@ -9,6 +9,8 @@
 <script src="math.js"></script>
 
 <script>
+
+    bundles = {"d20":500,"d10":250,"d5":100,"d1":25,"c25":10,"c10":5,"c05":2,"c01":0.5}
     
     window.addEventListener('beforeunload', function(e) {
         e.preventDefault();
@@ -22,21 +24,7 @@
         }
     }
     function fromAmt(expression,denomination) {
-        if (denomination.substring(0,1) == "c") {
-            denom = Number(denomination.replace(/\D/g,''))
-            if ((math.evaluate(expression) * 100) % denom == 0) {
-                return math.evaluate(expression)
-            } else {
-                return "Error"
-            }
-        } else {
-            denom = Number(denomination.replace(/\D/g,''))
-            if (math.evaluate(expression) % denom == 0) {
-                return math.evaluate(expression)
-            } else {
-                return "Error"
-            }
-        }
+        return bundles[denomination] * expression
     }
     function getTotal(denomination) {
         quantity = fromQty(document.getElementById(denomination + "_qty").value,denomination)
@@ -206,10 +194,10 @@
         <tr>
             <th>Bills</th>
             <th>Qty</th>
-            <th>Amnt</th>
+            <th>Bundle</th>
             <th>Total</th>
             <th>Qty</th>
-            <th>Amnt</th>
+            <th>Bundle</th>
             <th>Total</th>
         </tr>
         <tr>
