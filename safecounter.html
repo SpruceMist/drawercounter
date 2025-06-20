@@ -88,9 +88,8 @@
     function actualTotal() {
         cashCount = Number(document.getElementById("final_total").innerText.replace('$',''))
         bank = Number(document.getElementById("bank").value)
-        recycling = Number(document.getElementById("recycling").value)
 
-        document.getElementById("actual").innerText = "$" + (cashCount + bank + recycling)
+        document.getElementById("actual").innerText = "$" + (cashCount + bank)
 
     }
     function totalsDifference() {
